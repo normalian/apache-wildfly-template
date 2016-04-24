@@ -1,0 +1,152 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "region": {
+        "type": "string",
+        "allowedValues": [
+            "West US",
+            "East US",
+            "East Asia",
+            "Southeast Asia",
+            "West Europe"
+        ],
+        "metadata": {
+            "description": "Location where resources will be provisioned"
+        }
+        },
+        "storageAccountPrefix": {
+        "type": "string",
+        "metadata": {
+            "description": "Unique namespace for the Storage Account where the Virtual Machine's disks will be placed"
+        }
+        },
+        "virtualNetworkName": {
+        "type": "string",
+        "defaultValue": "myVNET",
+        "metadata": {
+            "description": "Name of the virtual network provisioned for the cluster"
+        }
+        },
+        "adminUsername": {
+        "type": "string",
+        "metadata": {
+            "description": "Administrator user name used when provisioning virtual machines"
+        }
+        },
+        "adminPassword": {
+        "type": "securestring",
+        "metadata": {
+            "description": "Administrator password used when provisioning virtual machines"
+        }
+        },
+        "dnsName": {
+            "type": "string",
+            "metadata": {
+                "description": "Domain name for the publicly accessible Jenkins master node"
+            }
+        },
+        "masterVmSize": {
+            "type": "string",
+            "defaultValue": "Standard_D3",
+            "allowedValues": [
+                "Standard_D3",
+                "Standard_D4"
+            ],
+            "metadata": {
+                "description": "The size of the virtual machines used when provisioning the Jenkins master node"
+            }
+        },
+        "slaveNodes": {
+            "type": "int",
+            "defaultValue": 1,
+            "metadata": {
+                "description": "Number of Jenkins slave node (1 is the default)"
+            }
+        },
+        "slaveVmSize": {
+            "type": "string",
+            "defaultValue": "Standard_D3",
+            "allowedValues": [
+                "Standard_D3",
+                "Standard_D4"
+            ],
+            "metadata": {
+                "description": "The size of the virtual machines used when provisioning Jenkins slave node(s)"
+            }
+        }
+    },
+    "variables": {
+        "templateBaseUrl": "https://raw.githubusercontent.com/normalian/master/apache-wildfly-template/",
+        "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'shared-resources.json')]",
+        //"apacheTemplateUrl": "[concat(variables('templateBaseUrl'), 'apache-resources.json')]",
+        //"wildflyTemplateUrl": "[concat(variables('templateBaseUrl'), 'wildfly-resources.json')]",
+        "networkSettings": {
+            "virtualNetworkName": "[parameters('virtualNetworkName')]",
+            "addressPrefix": "10.30.0.0/16",
+            "subnet": {
+                "dse": {
+                    "name": "dse",
+                    "prefix": "10.30.0.0/24",
+                    "vnet": "[parameters('virtualNetworkName')]"
+                }
+            },
+            "statics": {
+                "wildflyRange": {
+                    "base": "10.30.0.",
+                    "start": 5
+                },
+                "apacheIp": "10.30.0.220"
+            }
+         },
+        "masterOsSettings": {
+        "imageReference": {
+            "publisher": "OpenLogic",
+            "offer": "CentOS",
+            "sku": "7.1",
+            "version": "latest"
+        },
+        "scripts": [
+            //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkMstrInstall.sh",
+            //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkAddNode.groovy"
+        ]
+        },
+        "slaveOsSettings": {
+        "imageReference": {
+            "publisher": "OpenLogic",
+            "offer": "CentOS",
+            "sku": "7.1",
+            "version": "latest"
+        },
+        "scripts": [
+            //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkSlaveInstall.sh"
+        ]
+        },
+        "sharedStorageAccountName": "[parameters('storageAccountPrefix')]"
+    },
+    "resources": [
+        {
+            "name": "shared",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2015-01-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                "uri": "[variables('sharedTemplateUrl')]",
+                "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                "region": {
+                    "value": "[resourceGroup().location]"
+                },
+                "networkSettings": {
+                    "value": "[variables('networkSettings')]"
+                },
+                "storageAccountName": {
+                    "value": "[variables('sharedStorageAccountName')]"
+                }
+                }
+            }
+        }
+    ]
+}
