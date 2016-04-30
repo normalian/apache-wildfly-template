@@ -99,6 +99,7 @@
                 "apacheIp": "10.30.0.220"
             }
          },
+        "namespace": "jenk",
         "masterOsSettings": {
         "imageReference": {
             "publisher": "OpenLogic",

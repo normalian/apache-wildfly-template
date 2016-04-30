@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "storageAccountPrefix": {
-      "value": "GEN-UNIQUE"
+      "value": "daisamiteststorage001"
     },
     "virtualNetworkName": {
       "value": "vnet1"
@@ -18,7 +18,7 @@
       "value": "West US"
     },
     "dnsName": {
-      "value": "GEN-UNIQUE-13"
+      "value": "daisamitestdns001"
     },
     "masterVmSize": {
       "value": "Standard_D3"
