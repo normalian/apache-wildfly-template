@@ -79,7 +79,7 @@
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[parameters('vmbasename'), '-publicIp')]",
+      "name": "[concat(parameters('vmbasename'), '-publicIp')]",
       "location": "[parameters('region')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
