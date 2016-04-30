@@ -57,11 +57,11 @@
                 "description": "The size of the virtual machines used when provisioning the Jenkins master node"
             }
         },
-        "slaveNodes": {
+        "wildflyNodes": {
             "type": "int",
-            "defaultValue": 1,
+            "defaultValue": 2,
             "metadata": {
-                "description": "Number of Jenkins slave node (1 is the default)"
+                "description": "Number of Jenkins slave node (2 is the default)"
             }
         },
         "slaveVmSize": {
@@ -80,7 +80,7 @@
         "templateBaseUrl": "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/",
         "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'shared-resources.json')]",
         "apacheTemplateUrl": "[concat(variables('templateBaseUrl'), 'apache-resources.json')]",
-        //"wildflyTemplateUrl": "[concat(variables('templateBaseUrl'), 'wildfly-resources.json')]",
+        "wildflyTemplateUrl": "[concat(variables('templateBaseUrl'), 'wildfly-resources.json')]",
         "networkSettings": {
             "virtualNetworkName": "[parameters('virtualNetworkName')]",
             "addressPrefix": "10.30.0.0/16",
@@ -145,6 +145,9 @@
                     },
                     "storageAccountName": {
                         "value": "[variables('sharedStorageAccountName')]"
+                    },
+                    "namespace": {
+                        "value": "[variables('namespace')]"
                     }
                 }
             }
@@ -191,13 +194,65 @@
                         "value": "[parameters('masterVmSize')]"
                     },
                     //"wildflyNodes": {
-                    //    "value": "[parameters('slaveNodes')]"
+                    //    "value": "[parameters('wildflyNodes')]"
                     //},
                     "osSettings": {
                         "value": "[variables('masterOsSettings')]"
                     }
                 }
             }
+        },
+        {
+            "name": "[concat('wildflyNode', copyindex())]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2015-01-01",
+            "dependsOn": [
+                "[concat('Microsoft.Resources/deployments/', 'shared')]",
+                "[concat('Microsoft.Resources/deployments/', 'apacheNode')]"
+            ],
+            "copy": {
+                "name": "vmLoop",
+                "count": "[parameters('wildflyNodes')]"
+            },
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                "uri": "[variables('wildflyTemplateUrl')]",
+                "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "region": {
+                        "value": "[resourceGroup().location]"
+                    },
+                    "storageAccountName": {
+                        "value": "[variables('sharedStorageAccountName')]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "adminPassword": {
+                        "value": "[parameters('adminPassword')]"
+                    },
+                    "namespace": {
+                        "value": "[variables('namespace')]"
+                    },
+                    "vmbasename": {
+                        "value": "[concat('Slave', copyindex())]"
+                    },
+                    "masterNode": {
+                        "value": "[variables('networkSettings').statics.apacheIp]"
+                    },
+                    "subnet": {
+                        "value": "[variables('networkSettings').subnet.dse]"
+                    },
+                    "vmSize": {
+                        "value": "[parameters('slaveVmSize')]"
+                    },
+                    "osSettings": {
+                        "value": "[variables('slaveOsSettings')]"
+                    }
+                }
+            }
         }
-    ]
+     ],
 }
