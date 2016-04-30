@@ -99,7 +99,7 @@
                 "apacheIp": "10.30.0.220"
             }
          },
-        "namespace": "jenk",
+        "namespace": "wildfly",
         "masterOsSettings": {
             "imageReference": {
                 "publisher": "OpenLogic",
@@ -175,11 +175,8 @@
                     "adminPassword": {
                         "value": "[parameters('adminPassword')]"
                     },
-                    "namespace": {
-                        "value": "[variables('namespace')]"
-                    },
                     "vmbasename": {
-                        "value": "Apache"
+                        "value": "apache"
                     },
                     "subnet": {
                         "value": "[variables('networkSettings').subnet.dse]"
