@@ -3,42 +3,42 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "region": {
-        "type": "string",
-        "allowedValues": [
-            "West US",
-            "East US",
-            "East Asia",
-            "Southeast Asia",
-            "West Europe"
-        ],
-        "metadata": {
-            "description": "Location where resources will be provisioned"
-        }
+            "type": "string",
+            "allowedValues": [
+                "West US",
+                "East US",
+                "East Asia",
+                "Southeast Asia",
+                "West Europe"
+            ],
+            "metadata": {
+                "description": "Location where resources will be provisioned"
+            }
         },
         "storageAccountPrefix": {
-        "type": "string",
-        "metadata": {
-            "description": "Unique namespace for the Storage Account where the Virtual Machine's disks will be placed"
-        }
+            "type": "string",
+            "metadata": {
+                "description": "Unique namespace for the Storage Account where the Virtual Machine's disks will be placed"
+            }
         },
         "virtualNetworkName": {
-        "type": "string",
-        "defaultValue": "myVNET",
-        "metadata": {
-            "description": "Name of the virtual network provisioned for the cluster"
-        }
+            "type": "string",
+            "defaultValue": "myVNET",
+            "metadata": {
+                "description": "Name of the virtual network provisioned for the cluster"
+            }
         },
         "adminUsername": {
-        "type": "string",
-        "metadata": {
-            "description": "Administrator user name used when provisioning virtual machines"
-        }
+            "type": "string",
+            "metadata": {
+                "description": "Administrator user name used when provisioning virtual machines"
+            }
         },
         "adminPassword": {
-        "type": "securestring",
-        "metadata": {
-            "description": "Administrator password used when provisioning virtual machines"
-        }
+            "type": "securestring",
+            "metadata": {
+                "description": "Administrator password used when provisioning virtual machines"
+            }
         },
         "dnsName": {
             "type": "string",
@@ -101,27 +101,27 @@
          },
         "namespace": "jenk",
         "masterOsSettings": {
-        "imageReference": {
-            "publisher": "OpenLogic",
-            "offer": "CentOS",
-            "sku": "7.1",
-            "version": "latest"
-        },
-        "scripts": [
-            //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkMstrInstall.sh",
-            //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkAddNode.groovy"
-        ]
+            "imageReference": {
+                "publisher": "OpenLogic",
+                "offer": "CentOS",
+                "sku": "7.1",
+                "version": "latest"
+            },
+            "scripts": [
+                //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkMstrInstall.sh",
+                //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkAddNode.groovy"
+            ]
         },
         "slaveOsSettings": {
-        "imageReference": {
-            "publisher": "OpenLogic",
-            "offer": "CentOS",
-            "sku": "7.1",
-            "version": "latest"
-        },
-        "scripts": [
-            //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkSlaveInstall.sh"
-        ]
+            "imageReference": {
+                "publisher": "OpenLogic",
+                "offer": "CentOS",
+                "sku": "7.1",
+                "version": "latest"
+            },
+            "scripts": [
+                //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkSlaveInstall.sh"
+            ]
         },
         "sharedStorageAccountName": "[parameters('storageAccountPrefix')]"
     },
@@ -133,19 +133,19 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                "uri": "[variables('sharedTemplateUrl')]",
-                "contentVersion": "1.0.0.0"
+                    "uri": "[variables('sharedTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                "region": {
-                    "value": "[resourceGroup().location]"
-                },
-                "networkSettings": {
-                    "value": "[variables('networkSettings')]"
-                },
-                "storageAccountName": {
-                    "value": "[variables('sharedStorageAccountName')]"
-                }
+                    "region": {
+                        "value": "[resourceGroup().location]"
+                    },
+                    "networkSettings": {
+                        "value": "[variables('networkSettings')]"
+                    },
+                    "storageAccountName": {
+                        "value": "[variables('sharedStorageAccountName')]"
+                    }
                 }
             }
         },
@@ -159,46 +159,46 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                "uri": "[variables('apacheTemplateUrl')]",
-                "contentVersion": "1.0.0.0"
+                    "uri": "[variables('apacheTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                "region": {
-                    "value": "[parameters('region')]"
-                },
-                "storageAccountName": {
-                    "value": "[variables('sharedStorageAccountName')]"
-                },
-                "adminUsername": {
-                    "value": "[parameters('adminUsername')]"
-                },
-                "adminPassword": {
-                    "value": "[parameters('adminPassword')]"
-                },
-                "namespace": {
-                    "value": "[variables('namespace')]"
-                },
-                "vmbasename": {
-                    "value": "Master"
-                },
-                "subnet": {
-                    "value": "[variables('networkSettings').subnet.dse]"
-                },
-                "dnsname": {
-                    "value": "[parameters('dnsName')]"
-                },
-                "staticIp": {
-                    "value": "[variables('networkSettings').statics.jenkMaster]"
-                },
-                "vmSize": {
-                    "value": "[parameters('masterVmSize')]"
-                },
-                //"wildflyNodes": {
-                //    "value": "[parameters('slaveNodes')]"
-                //},
-                "osSettings": {
-                    "value": "[variables('masterOsSettings')]"
-                }
+                    "region": {
+                        "value": "[resourceGroup().location]"
+                    },
+                    "storageAccountName": {
+                        "value": "[variables('sharedStorageAccountName')]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "adminPassword": {
+                        "value": "[parameters('adminPassword')]"
+                    },
+                    "namespace": {
+                        "value": "[variables('namespace')]"
+                    },
+                    "vmbasename": {
+                        "value": "Apache"
+                    },
+                    "subnet": {
+                        "value": "[variables('networkSettings').subnet.dse]"
+                    },
+                    "dnsname": {
+                        "value": "[parameters('dnsName')]"
+                    },
+                    "staticIp": {
+                        "value": "[variables('networkSettings').statics.apacheIp]"
+                    },
+                    "vmSize": {
+                        "value": "[parameters('masterVmSize')]"
+                    },
+                    //"wildflyNodes": {
+                    //    "value": "[parameters('slaveNodes')]"
+                    //},
+                    "osSettings": {
+                        "value": "[variables('masterOsSettings')]"
+                    }
                 }
             }
         }
