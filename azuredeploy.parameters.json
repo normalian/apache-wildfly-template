@@ -23,7 +23,7 @@
     "masterVmSize": {
       "value": "Standard_D3"
     },
-    "slaveNodes": {
+    "wildflyNodes": {
       "value": 1
     },
     "slaveVmSize": {
