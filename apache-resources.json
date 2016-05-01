@@ -160,7 +160,7 @@
       "apiVersion": "2015-06-15",
       "location": "[parameters('region')]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmbasename'), 'vm'))]"
+        "[resourceId('Microsoft.Compute/virtualMachines',concat( parameters('vmbasename'), 'vm'))]"
       ],
       "properties": {
         "publisher": "Microsoft.OSTCExtensions",
