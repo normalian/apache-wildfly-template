@@ -99,10 +99,10 @@
           ]
         }
       }
-    }/*,
+    },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('namespace'), parameters('vmbasename'), 'vm', '/jenkInstall')]",
+      "name": "[concat(parameters('namespace'), parameters('vmbasename'), 'vm', '/wildflyInstall')]",
       "apiVersion": "2015-05-01-preview",
       "location": "[parameters('region')]",
       "dependsOn": [
@@ -116,10 +116,10 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": "[parameters('osSettings').scripts]",
-          "commandToExecute": "[concat('bash jenkSlaveInstall.sh -m ', parameters('masterNode'), ' -s ', parameters('vmbasename') )]"
+          "commandToExecute": "['bash wildflyInstall.sh']"
         }
       }
-    }*/
+    }
   ],
   "outputs": {}
 }

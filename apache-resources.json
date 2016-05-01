@@ -153,25 +153,25 @@
           ]
         }
       }
-    }/*,
+    },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('namespace'), parameters('vmbasename'), 'vm', '/jenkInstall')]",
+      "name": "[concat(parameters('namespace'), parameters('vmbasename'), 'vm', '/apacheInstall')]",
       "apiVersion": "2015-05-01-preview",
       "location": "[parameters('region')]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', concat(parameters('namespace'), concat(parameters('vmbasename'), 'vm')))]"
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmbasename'), 'vm')]"
       ],
       "properties": {
         "publisher": "Microsoft.OSTCExtensions",
         "type": "CustomScriptForLinux",
-        "typeHandlerVersion": "1.2",
+        "typeHandlerVersion": "1.5",
         "settings": {
           "fileUris": "[parameters('osSettings').scripts]",
-          "commandToExecute": "[concat('bash jenkMstrInstall.sh -n ', parameters('slaveNodes'))]"
+          "commandToExecute": "['bash apacheInstall.sh']"
         }
       }
-    }*/
+    }
   ],
   "outputs": {}
 }

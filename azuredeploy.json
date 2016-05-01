@@ -2,19 +2,6 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "region": {
-            "type": "string",
-            "allowedValues": [
-                "West US",
-                "East US",
-                "East Asia",
-                "Southeast Asia",
-                "West Europe"
-            ],
-            "metadata": {
-                "description": "Location where resources will be provisioned"
-            }
-        },
         "storageAccountPrefix": {
             "type": "string",
             "metadata": {
@@ -43,7 +30,7 @@
         "dnsName": {
             "type": "string",
             "metadata": {
-                "description": "Domain name for the publicly accessible Jenkins master node"
+                "description": "Domain name for the publicly accessible apache instance"
             }
         },
         "masterVmSize": {
@@ -54,14 +41,14 @@
                 "Standard_D4"
             ],
             "metadata": {
-                "description": "The size of the virtual machines used when provisioning the Jenkins master node"
+                "description": "The size of the virtual machines used when provisioning the apache instance"
             }
         },
         "wildflyNodes": {
             "type": "int",
             "defaultValue": 2,
             "metadata": {
-                "description": "Number of Jenkins slave node (2 is the default)"
+                "description": "Number of WildFly node (2 is the default)"
             }
         },
         "slaveVmSize": {
@@ -72,7 +59,7 @@
                 "Standard_D4"
             ],
             "metadata": {
-                "description": "The size of the virtual machines used when provisioning Jenkins slave node(s)"
+                "description": "The size of the virtual machines used when provisioning WildFly node(s)"
             }
         }
     },
@@ -108,7 +95,7 @@
                 "version": "latest"
             },
             "scripts": [
-                //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkMstrInstall.sh",
+                "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/apacheInstall.sh"
                 //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkAddNode.groovy"
             ]
         },
@@ -120,7 +107,7 @@
                 "version": "latest"
             },
             "scripts": [
-                //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkSlaveInstall.sh"
+                "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/wildflyInstall.sh"
             ]
         },
         "sharedStorageAccountName": "[parameters('storageAccountPrefix')]"
