@@ -35,7 +35,7 @@
   },
   "variables": {
     "subnetRef": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('subnet').vnet), '/subnets/', parameters('subnet').name)]",
-    "securityGroupName": "[concat(parameters('vmbasename'), '-nsg')]"
+    "securityGroupName": "[concat(parameters('vmbasename'), 'nsg')]"
   },
   "resources": [
     {
@@ -79,7 +79,7 @@
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(parameters('vmbasename'), '-publicIp')]",
+      "name": "[concat(parameters('vmbasename'), 'publicIp')]",
       "location": "[parameters('region')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
@@ -91,10 +91,10 @@
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('vmbasename'), '-nic')]",
+      "name": "[concat(parameters('vmbasename'), 'nic')]",
       "location": "[parameters('region')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/publicIPAddresses/', parameters('vmbasename'), '-publicIp')]"
+        "[concat('Microsoft.Network/publicIPAddresses/', parameters('vmbasename'), 'publicIp')]"
       ],
       "properties": {
         "ipConfigurations": [
@@ -102,7 +102,7 @@
             "name": "ipconfig1",
             "properties": {
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vmbasename'), '-publicIp'))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vmbasename'), 'publicIp'))]"
               },
               "privateIPAllocationMethod": "Static",
               "privateIPAddress": "[parameters('staticIp')]",
@@ -120,17 +120,17 @@
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat(parameters('vmbasename'), '-vm')]",
+      "name": "[concat(parameters('vmbasename'), 'vm')]",
       "location": "[parameters('region')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', concat(parameters('vmbasename'), '-nic'))]"
+        "[concat('Microsoft.Network/networkInterfaces/', concat(parameters('vmbasename'), 'nic'))]"
       ],
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
         },
         "osProfile": {
-          "computerName": "[concat(parameters('vmbasename'), '-vm')]",
+          "computerName": "[concat(parameters('vmbasename'), 'vm')]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
@@ -148,7 +148,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vmbasename'), '-nic'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vmbasename'), 'nic'))]"
             }
           ]
         }
