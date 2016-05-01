@@ -157,18 +157,18 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('vmbasename'), 'vm', '/apacheInstall')]",
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "location": "[parameters('region')]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmbasename'), 'vm')]"
+        "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('vmbasename'), 'vm'))]"
       ],
       "properties": {
         "publisher": "Microsoft.OSTCExtensions",
         "type": "CustomScriptForLinux",
-        "typeHandlerVersion": "1.5",
+        "typeHandlerVersion": "1.4",
         "settings": {
           "fileUris": "[parameters('osSettings').scripts]",
-          "commandToExecute": "['bash apacheInstall.sh']"
+          "commandToExecute": "['sh apacheInstall.sh']"
         }
       }
     }
