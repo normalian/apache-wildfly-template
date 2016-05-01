@@ -115,8 +115,10 @@
         "typeHandlerVersion": "1.5",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "fileUris": "[parameters('osSettings').script]",
-          "commandToExecute": "bash wildflyInstall.sh"
+          "fileUris": [
+            "[parameters('osSettings').script]"
+          ],
+          "commandToExecute": "sh wildflyInstall.sh"
         }
       }
     }
