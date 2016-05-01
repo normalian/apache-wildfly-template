@@ -103,11 +103,11 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('namespace'), parameters('vmbasename'), 'vm', '/wildflyInstall')]",
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "location": "[parameters('region')]",
       "dependsOn": [
         "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('namespace'), parameters('vmbasename'), 'vm'))]",
-        "[resourceId('Microsoft.Network/networkInterfaces',concat( parameters('namespace'), parameters('vmbasename'), 'nic')]"
+        "[resourceId('Microsoft.Network/networkInterfaces', concat( parameters('namespace'), parameters('vmbasename'), 'nic'))]"
       ],
       "properties": {
         "publisher": "Microsoft.OSTCExtensions",
