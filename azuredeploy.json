@@ -145,10 +145,10 @@
                     },
                     "storageAccountName": {
                         "value": "[variables('sharedStorageAccountName')]"
-                    },
+                    }/*,
                     "namespace": {
                         "value": "[variables('namespace')]"
-                    }
+                    }*/
                 }
             }
         },
