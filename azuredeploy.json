@@ -145,10 +145,7 @@
                     },
                     "storageAccountName": {
                         "value": "[variables('sharedStorageAccountName')]"
-                    }/*,
-                    "namespace": {
-                        "value": "[variables('namespace')]"
-                    }*/
+                    }
                 }
             }
         },
@@ -193,9 +190,6 @@
                     "vmSize": {
                         "value": "[parameters('masterVmSize')]"
                     },
-                    //"wildflyNodes": {
-                    //    "value": "[parameters('wildflyNodes')]"
-                    //},
                     "osSettings": {
                         "value": "[variables('masterOsSettings')]"
                     }
@@ -254,5 +248,5 @@
                 }
             }
         }
-     ],
+     ]
 }
