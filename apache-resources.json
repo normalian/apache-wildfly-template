@@ -160,15 +160,16 @@
       "apiVersion": "2015-06-15",
       "location": "[parameters('region')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('vmbasename'), 'vm'))]"
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmbasename'), 'vm'))]"
       ],
       "properties": {
         "publisher": "Microsoft.OSTCExtensions",
         "type": "CustomScriptForLinux",
-        "typeHandlerVersion": "1.4",
+        "typeHandlerVersion": "1.5",
+        "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": "[parameters('osSettings').scripts]",
-          "commandToExecute": "['sh apacheInstall.sh']"
+          "commandToExecute": "bash apacheInstall.sh"
         }
       }
     }

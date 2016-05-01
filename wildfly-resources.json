@@ -112,11 +112,11 @@
       "properties": {
         "publisher": "Microsoft.OSTCExtensions",
         "type": "CustomScriptForLinux",
-        "typeHandlerVersion": "1.4",
-        //"autoUpgradeMinorVersion": true,
+        "typeHandlerVersion": "1.5",
+        "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": "[parameters('osSettings').scripts]",
-          "commandToExecute": "['bash wildflyInstall.sh']"
+          "commandToExecute": "bash wildflyInstall.sh"
         }
       }
     }
