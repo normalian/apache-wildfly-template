@@ -94,10 +94,7 @@
                 "sku": "7.1",
                 "version": "latest"
             },
-            "scripts": [
-                "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/apacheInstall.sh"
-                //"https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/jenkins-on-ubuntu/jenkAddNode.groovy"
-            ]
+            "script": "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/apacheInstall.sh"
         },
         "slaveOsSettings": {
             "imageReference": {
@@ -106,9 +103,7 @@
                 "sku": "7.1",
                 "version": "latest"
             },
-            "scripts": [
-                "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/wildflyInstall.sh"
-            ]
+            "script": "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/wildflyInstall.sh"
         },
         "sharedStorageAccountName": "[parameters('storageAccountPrefix')]"
     },

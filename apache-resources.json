@@ -168,7 +168,7 @@
         "typeHandlerVersion": "1.5",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "fileUris": "[parameters('osSettings').scripts]",
+          "fileUris": "[parameters('osSettings').script]",
           "commandToExecute": "bash apacheInstall.sh"
         }
       }
