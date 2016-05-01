@@ -137,6 +137,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "namespace": {
+                        "value": "[variables('namespace')]"
+                    },
                     "region": {
                         "value": "[resourceGroup().location]"
                     },
