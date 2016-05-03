@@ -11,6 +11,10 @@
 # systemctl start httpd
 MASTERIP=$1
 
+
+# JDK Install
+yum install -y java-1.8.0-openjdk
+
 wget http://download.jboss.org/wildfly/10.0.0.Final/wildfly-10.0.0.Final.zip
 unzip -q wildfly-10.0.0.Final.zip
 mv wildfly-10.0.0.Final/ /opt/

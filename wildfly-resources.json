@@ -118,7 +118,7 @@
           "fileUris": [
             "[parameters('osSettings').script]"
           ],
-          "commandToExecute": "sh wildflyInstall.sh"
+          "commandToExecute": "[concat('sh wildflyInstall.sh ', parameters('masterNode'))]"
         }
       }
     }

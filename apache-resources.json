@@ -72,6 +72,34 @@
               "priority": 110,
               "direction": "Inbound"
             }
+          },
+          {
+            "name": "AP-HTTP",
+            "properties": {
+              "description": "Allows WildFly HTTP traffic",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "8080",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Admin-HTTP",
+            "properties": {
+              "description": "Allows WildFly Admin site HTTP traffic",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "9990",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 130,
+              "direction": "Inbound"
+            }
           }
         ]
       }
