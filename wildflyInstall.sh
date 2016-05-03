@@ -25,15 +25,16 @@ chown -R wildfly:wildfly /var/log/wildfly/
 # config file setting for slave
 sed -i 's/# JBOSS_HOME=/JBOSS_HOME=/g' /etc/default/wildfly.conf
 sed -i 's/# JBOSS_USER=/JBOSS_USER=/g' /etc/default/wildfly.conf
-sed -i 's/# JBOSS_MODE=standalone/JBOSS_MODE=domain/g' /etc/default/wildfly.conf
+sed -i 's/# JBOSS_MODE=standalone/JBOSS_MODE=domain/g' /etsec/default/wildfly.conf
 sed -i 's/# JBOSS_DOMAIN_CONFIG=domain.xml/JBOSS_DOMAIN_CONFIG=domain.xml/g' /etc/default/wildfly.conf
 sed -i 's/# JBOSS_HOST_CONFIG=host-master.xml/JBOSS_HOST_CONFIG=host-slave.xml/g' /etc/default/wildfly.conf
 
 # setup for domain
 sed -i "s/jboss.bind.address.management:127.0.0.1/jboss.bind.address.management:$MY_IP/g" /opt/wildfly/domain/configuration/host-slave.xml
 sed -i "s/jboss.bind.address:127.0.0.1/jboss.bind.address:$MY_IP/g" /opt/wildfly/domain/configuration/host-slave.xml
-sed -i "s/\${jboss.domain.master.address}\}/$MASTER_IP/g" /opt/wildfly/domain/configuration/host-slave.xml
+sed -i "s/\${jboss.domain.master.address\}/$MASTER_IP/g" /opt/wildfly/domain/configuration/host-slave.xml
 sed -i "s/\(^.*secret value=\"\)\([^\"]*\)\(\".*\)$/\1$PASSWORD_HASH\3/g" /opt/wildfly/domain/configuration/host-slave.xml
+sed -i "s/remote security-realm=\"ManagementRealm\"/remote security-realm=\"ManagementRealm\" username=\"admin\"/g" /opt/wildfly/domain/configuration/host-slave.xml 
 
 # running wildfly as a service 
 chkconfig --add wildfly
