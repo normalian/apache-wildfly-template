@@ -1,16 +1,9 @@
 #!/bin/bash
 
-# https://docs.jboss.org/author/display/WFLY9/WildFly+9+Cluster+Howto
-# http://daisamitestdns001.japanwest.cloudapp.azure.com:9990/console/
-# HASH=`echo "P@ssword1" | openssl enc -e -base64`
-
 # yum -y update
 # yum install -y httpd
-# wget -q --wait=5 https://raw.githubusercontent.com/normalian/linux-vm-customscript/master/index.html
-# mv -f index.html /var/www/html/
 # systemctl start httpd
 MASTERIP=$1
-
 
 # JDK Install
 yum install -y java-1.8.0-openjdk
@@ -48,4 +41,4 @@ chkconfig --add wildfly
 chkconfig wildfly on
 service wildfly start
 
-echo "end setup wildfly script" >> /root/message.txt
+echo "end setup wildfly master script" >> /root/message.txt
