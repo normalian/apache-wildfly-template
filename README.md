@@ -1,3 +1,10 @@
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnormalian%2Fapache-wildfly-template%2Fmaster%2Fazuredeploy.json" target="_blank">
+    <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
+<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fnormalian%2Fapache-wildfly-template%2Fmaster%2Fazuredeploy.json" target="_blank">
+    <img src="http://armviz.io/visualizebutton.png"/>
+</a>
+
 # Install WildFly cluster with ARM template for Microsoft Azure 
 This template deploys a WildFly master node on an CentOS 7.x virtual machines and multiple WildFly slave nodes on other multiple VMs. This template also provisions a storage account, virtual network, availability sets, public IP addresses and network interfaces required by the installation.
 
