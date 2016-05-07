@@ -124,7 +124,7 @@
           "fileUris": [
             "[parameters('osSettings').script]"
           ],
-          "commandToExecute": "[concat('sh wildflyInstall.sh ', parameters('masterNode'), ' ', parameters('wildflyAdminPassword'))]"
+          "commandToExecute": "[concat('sh slaveInstall.sh ', parameters('masterNode'), ' ', parameters('wildflyAdminPassword'))]"
         }
       }
     }
