@@ -184,7 +184,7 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmbasename'), 'vm', '/apacheInstall')]",
+      "name": "[concat(parameters('vmbasename'), 'vm', '/masterInstall')]",
       "apiVersion": "2015-06-15",
       "location": "[parameters('region')]",
       "dependsOn": [

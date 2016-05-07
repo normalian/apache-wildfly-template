@@ -3,19 +3,19 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "storageAccountPrefix": {
-      "value": "myteststorage001"
+      "value": "myteststorage0012"
     },
     "virtualNetworkName": {
       "value": "vnet1"
     },
     "adminUsername": {
-      "value": "admin"
+      "value": "administrator"
     },
     "adminPassword": {
       "value": "P@ssword1"
     },
     "dnsName": {
-      "value": "mytestdns001"
+      "value": "mytestdns0012"
     },
     "masterVmSize": {
       "value": "Standard_D3"
