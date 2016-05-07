@@ -8,10 +8,16 @@
     "storageAccountName": {
       "type": "string"
     },
-    "adminUsername": {
+    "osAdminUsername": {
       "type": "string"
     },
-    "adminPassword": {
+    "osAdminPassword": {
+      "type": "securestring"
+    },
+    "wildflyAdminUsername": {
+      "type": "string"
+    },
+    "wildflyAdminPassword": {
       "type": "securestring"
     },
     "namespace": {
@@ -77,8 +83,8 @@
         },
         "osProfile": {
           "computerName": "[concat(parameters('namespace'), concat(parameters('vmbasename'), 'vm'))]",
-          "adminUsername": "[parameters('adminUsername')]",
-          "adminPassword": "[parameters('adminPassword')]"
+          "osAdminUsername": "[parameters('osAdminUsername')]",
+          "osAdminPassword": "[parameters('osAdminPassword')]"
         },
         "storageProfile": {
           "imageReference": "[parameters('osSettings').imageReference]",
@@ -118,7 +124,7 @@
           "fileUris": [
             "[parameters('osSettings').script]"
           ],
-          "commandToExecute": "[concat('sh wildflyInstall.sh ', parameters('masterNode'), ' ', parameters('adminPassword'))]"
+          "commandToExecute": "[concat('sh wildflyInstall.sh ', parameters('masterNode'), ' ', parameters('wildflyAdminPassword'))]"
         }
       }
     }

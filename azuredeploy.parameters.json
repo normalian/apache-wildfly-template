@@ -8,10 +8,16 @@
     "virtualNetworkName": {
       "value": "vnet1"
     },
-    "adminUsername": {
-      "value": "administrator"
+    "osAdminUsername": {
+      "value": "azureuser"
     },
-    "adminPassword": {
+    "osAdminPassword": {
+      "value": "P@ssword1"
+    },
+    "wildflyAdminUsername": {
+      "value": "admin"
+    },
+    "wildflyAdminPassword": {
       "value": "P@ssword1"
     },
     "dnsName": {
