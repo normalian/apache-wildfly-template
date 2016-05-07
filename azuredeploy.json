@@ -17,28 +17,28 @@
         },
         "osAdminUsername": {
             "type": "string",
-            "value": "azureuser",
+            "defaultValue": "azureuser",
             "metadata": {
                 "description": "Administrator user name used when provisioning virtual machines"
             }
         },
         "osAdminPassword": {
             "type": "securestring",
-            "value": "P@ssword1",
+            "defaultValue": "P@ssword1",
             "metadata": {
                 "description": "Administrator password used when provisioning virtual machines"
             }
         },
         "wildflyAdminUsername": {
             "type": "string",
-            "value": "admin",
+            "defaultValue": "admin",
             "metadata": {
                 "description": "Administrator username used when logining wildfly portal site"
             }
         },
         "wildflyAdminPassword": {
             "type": "securestring",
-            "value": "P@ssword1",
+            "defaultValue": "P@ssword1",
             "metadata": {
                 "description": "Administrator password used when logining wildfly portal site"
             }
