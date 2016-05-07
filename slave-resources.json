@@ -83,8 +83,8 @@
         },
         "osProfile": {
           "computerName": "[concat(parameters('namespace'), concat(parameters('vmbasename'), 'vm'))]",
-          "osAdminUsername": "[parameters('osAdminUsername')]",
-          "osAdminPassword": "[parameters('osAdminPassword')]"
+          "adminUsername": "[parameters('osAdminUsername')]",
+          "adminPassword": "[parameters('osAdminPassword')]"
         },
         "storageProfile": {
           "imageReference": "[parameters('osSettings').imageReference]",
