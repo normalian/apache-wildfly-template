@@ -44,7 +44,7 @@
                 "description": "The size of the virtual machines used when provisioning the apache instance"
             }
         },
-        "wildflyNodes": {
+        "slaveNodes": {
             "type": "int",
             "defaultValue": 2,
             "metadata": {
@@ -66,8 +66,8 @@
     "variables": {
         "templateBaseUrl": "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/",
         "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'shared-resources.json')]",
-        "apacheTemplateUrl": "[concat(variables('templateBaseUrl'), 'apache-resources.json')]",
-        "wildflyTemplateUrl": "[concat(variables('templateBaseUrl'), 'wildfly-resources.json')]",
+        "masterTemplateUrl": "[concat(variables('templateBaseUrl'), 'master-resources.json')]",
+        "slaveTemplateUrl": "[concat(variables('templateBaseUrl'), 'slave-resources.json')]",
         "networkSettings": {
             "virtualNetworkName": "[parameters('virtualNetworkName')]",
             "addressPrefix": "10.30.0.0/16",
@@ -86,7 +86,7 @@
                 "apacheIp": "10.30.0.220"
             }
          },
-        "namespace": "wildfly",
+        "namespace": "Wildfly",
         "masterOsSettings": {
             "imageReference": {
                 "publisher": "OpenLogic",
@@ -94,7 +94,7 @@
                 "sku": "7.1",
                 "version": "latest"
             },
-            "script": "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/apacheInstall.sh"
+            "script": "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/masterInstall.sh"
         },
         "slaveOsSettings": {
             "imageReference": {
@@ -103,7 +103,7 @@
                 "sku": "7.1",
                 "version": "latest"
             },
-            "script": "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/wildflyInstall.sh"
+            "script": "https://raw.githubusercontent.com/normalian/apache-wildfly-template/master/slaveInstall.sh"
         },
         "sharedStorageAccountName": "[parameters('storageAccountPrefix')]"
     },
@@ -135,7 +135,7 @@
             }
         },
         {
-            "name": "apacheNode",
+            "name": "masterNode",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2015-01-01",
             "dependsOn": [
@@ -144,7 +144,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('apacheTemplateUrl')]",
+                    "uri": "[variables('masterTemplateUrl')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -161,7 +161,7 @@
                         "value": "[parameters('adminPassword')]"
                     },
                     "vmbasename": {
-                        "value": "apache"
+                        "value": "WildFlyMaster"
                     },
                     "subnet": {
                         "value": "[variables('networkSettings').subnet.dse]"
@@ -182,7 +182,7 @@
             }
         },
         {
-            "name": "[concat('wildflyNode', copyindex())]",
+            "name": "[concat('slaveWildflyNode', copyindex())]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2015-01-01",
             "dependsOn": [
@@ -191,12 +191,12 @@
             ],
             "copy": {
                 "name": "vmLoop",
-                "count": "[parameters('wildflyNodes')]"
+                "count": "[parameters('slaveNodes')]"
             },
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                "uri": "[variables('wildflyTemplateUrl')]",
+                "uri": "[variables('slaveTemplateUrl')]",
                 "contentVersion": "1.0.0.0"
                 },
                 "parameters": {

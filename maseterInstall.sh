@@ -4,6 +4,8 @@
 # yum install -y httpd
 # systemctl start httpd
 MASTERIP=$1
+ADMIN_USERNAME=$2
+ADMIN_PASSWORD=$3
 
 # JDK Install
 yum install -y java-1.8.0-openjdk
@@ -30,7 +32,7 @@ sed -i 's/# JBOSS_MODE=standalone/JBOSS_MODE=domain/g' /etc/default/wildfly.conf
 sed -i 's/# JBOSS_DOMAIN_CONFIG=domain.xml/JBOSS_DOMAIN_CONFIG=domain.xml/g' /etc/default/wildfly.conf
 
 # add wildfly admin user  
-/opt/wildfly/bin/add-user.sh admin P@ssword1
+/opt/wildfly/bin/add-user.sh $ADMIN_USERNAME $ADMIN_PASSWORD
 
 # setup for domain
 sed -i "s/jboss.bind.address.management:127.0.0.1/jboss.bind.address.management:$MASTERIP/g" /opt/wildfly/domain/configuration/host.xml

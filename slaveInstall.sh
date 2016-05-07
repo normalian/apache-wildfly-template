@@ -1,8 +1,9 @@
 #!/bin/bash
 
 MY_IP=`ifconfig eth0 | grep inet[^6] | sed 's/.*inet[^6][^0-9]*\([0-9.]*\)[^0-9]*.*/\1/'`
-MASTER_IP=$1
-PASSWORD_HASH=`echo "P@ssword1" | openssl enc -e -base64`
+MASTERIP=$1
+ADMIN_PASSWORD=$2
+PASSWORD_HASH=`echo $ADMIN_PASSWORD | openssl enc -e -base64`
 
 # JDK Install
 yum install -y java-1.8.0-openjdk
@@ -32,7 +33,7 @@ sed -i 's/# JBOSS_HOST_CONFIG=host-master.xml/JBOSS_HOST_CONFIG=host-slave.xml/g
 # wildfly setup for domain mode
 sed -i "s/jboss.bind.address.management:127.0.0.1/jboss.bind.address.management:$MY_IP/g" /opt/wildfly/domain/configuration/host-slave.xml
 sed -i "s/jboss.bind.address:127.0.0.1/jboss.bind.address:$MY_IP/g" /opt/wildfly/domain/configuration/host-slave.xml
-sed -i "s/\${jboss.domain.master.address\}/$MASTER_IP/g" /opt/wildfly/domain/configuration/host-slave.xml
+sed -i "s/\${jboss.domain.master.address\}/$MASTERIP/g" /opt/wildfly/domain/configuration/host-slave.xml
 sed -i "s/\(^.*secret value=\"\)\([^\"]*\)\(\".*\)$/\1$PASSWORD_HASH\3/g" /opt/wildfly/domain/configuration/host-slave.xml
 sed -i "s/remote security-realm=\"ManagementRealm\"/remote security-realm=\"ManagementRealm\" username=\"admin\"/g" /opt/wildfly/domain/configuration/host-slave.xml 
 

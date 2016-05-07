@@ -199,7 +199,7 @@
           "fileUris": [
             "[parameters('osSettings').script]"
           ],
-          "commandToExecute": "[concat('sh apacheInstall.sh ', parameters('staticIp'))]"
+          "commandToExecute": "[concat('sh masterInstall.sh ', parameters('staticIp'), ' ', parameters('adminUsername'), ' ', parameters('adminPassword'))]"
         }
       }
     }
