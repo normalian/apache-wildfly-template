@@ -30,7 +30,7 @@
         "dnsName": {
             "type": "string",
             "metadata": {
-                "description": "Domain name for the publicly accessible apache instance"
+                "description": "Domain name for the publicly accessible master instance"
             }
         },
         "masterVmSize": {
@@ -41,7 +41,7 @@
                 "Standard_D4"
             ],
             "metadata": {
-                "description": "The size of the virtual machines used when provisioning the apache instance"
+                "description": "The size of the virtual machines used when provisioning the master instance"
             }
         },
         "slaveNodes": {
@@ -83,7 +83,7 @@
                     "base": "10.30.0.",
                     "start": 5
                 },
-                "apacheIp": "10.30.0.220"
+                "masterIp": "10.30.0.220"
             }
          },
         "namespace": "Wildfly",
@@ -170,7 +170,7 @@
                         "value": "[parameters('dnsName')]"
                     },
                     "staticIp": {
-                        "value": "[variables('networkSettings').statics.apacheIp]"
+                        "value": "[variables('networkSettings').statics.masterIp]"
                     },
                     "vmSize": {
                         "value": "[parameters('masterVmSize')]"
@@ -187,7 +187,7 @@
             "apiVersion": "2015-01-01",
             "dependsOn": [
                 "[concat('Microsoft.Resources/deployments/', 'shared')]",
-                "[concat('Microsoft.Resources/deployments/', 'apacheNode')]"
+                "[concat('Microsoft.Resources/deployments/', 'masterNode')]"
             ],
             "copy": {
                 "name": "vmLoop",
@@ -219,7 +219,7 @@
                         "value": "[concat('Slave', copyindex())]"
                     },
                     "masterNode": {
-                        "value": "[variables('networkSettings').statics.apacheIp]"
+                        "value": "[variables('networkSettings').statics.masterIp]"
                     },
                     "subnet": {
                         "value": "[variables('networkSettings').subnet.dse]"
