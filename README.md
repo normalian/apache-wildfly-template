@@ -5,7 +5,7 @@
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
-# Install WildFly cluster with ARM templates
+# Deploy WildFly multi nodes cluster with ARM
 This template deploys a WildFly master node on an CentOS 7.x virtual machines and multiple WildFly slave nodes on other multiple VMs into Microsoft Azure. These templates also provision a storage account, virtual network, availability sets, public IP addresses and network interfaces required by the installation.
 
 You can login the WildFly management portal via http://"your dns name"."your location".cloudapp.azure.com:9990/console after installation completed, and you can find master and slave nodes like below.
